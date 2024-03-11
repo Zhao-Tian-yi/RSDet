@@ -6,17 +6,18 @@ Paper: ([arXiv 2401.10731](https://arxiv.org/abs/2401.10731))
 
 Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** framework, this project modifies its data flow and related classes and functions, and changes the MMdetection to a multi-modal detection framework to facilitate **RGBT Object Detection**.
 
-## Overview
+## **Overview**
 
-![image-20240312011746031](README.assets\image-20240312011746031.png)
+<p align="center">
+  <img src="README.assets\image-20240312011746031.png" alt="overview" width="90%">
+</p>
 
-
-## Main Results
+## **Main Results**
 
 **`Dataset: FLIR, LLVIP and Kaist`**
 
 
-## Getting Started
+## **Getting Started**
 
 ### Installation
 
@@ -54,7 +55,7 @@ pip install -v -e .
 pip install -r requirements.txt
 pip install -r requirements_rgbt.txt
 ```
-## Citation
+## **Citation**
 
 ```
 @article{zhao2024removal,
@@ -65,4 +66,4 @@ pip install -r requirements_rgbt.txt
 }
 ```
 
-## Acknowledgment
+## **Acknowledgment**
