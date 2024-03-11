@@ -7,7 +7,7 @@ Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** 
 
 ## Overview
 
-![image-20240312011746031](D:\学习\Multmodel detection\IJCAI2024\mmdetection_RGBT_for_opensource\RSDet\README.assets\image-20240312011746031.png)
+![image-20240312011746031](.\README.assets\image-20240312011746031.png)
 
 
 ## Main Results
