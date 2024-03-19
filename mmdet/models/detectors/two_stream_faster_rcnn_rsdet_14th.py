@@ -174,7 +174,7 @@ class RSDet_14th(TwoStreamFasterRCNN):
         fre_lwir = masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
 
         img_lwir_unique = torch.real(torch.fft.ifft2(fre_lwir))
-        x_common, MI_loss = self.Gcommon(img_vis_unique, img_lwir_unique)
+        x_common = self.Gcommon(img_vis_unique, img_lwir_unique)
         x_vis = self.extract_feat_vis(img_vis_unique)
         x_lwir = self.extract_feat_lwir(img_lwir_unique)
 
@@ -232,7 +232,7 @@ class RSDet_14th(TwoStreamFasterRCNN):
         fre_lwir = masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
 
         img_lwir_unique = torch.real(torch.fft.ifft2(fre_lwir))
-        x_common,_ = self.Gcommon(img_vis_unique, img_lwir_unique)
+        x_common= self.Gcommon(img_vis_unique, img_lwir_unique)
         x_vis = self.extract_feat_vis(img_vis_unique)
         x_lwir = self.extract_feat_lwir(img_lwir_unique)
 
@@ -328,7 +328,7 @@ class RSDet_14th(TwoStreamFasterRCNN):
         fre_lwir = masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
 
         img_lwir_unique = torch.real(torch.fft.ifft2(fre_lwir))
-        x_common, MI_loss = self.Gcommon(img_vis_unique, img_lwir_unique)
+        x_common = self.Gcommon(img_vis_unique, img_lwir_unique)
         x_vis = self.extract_feat_vis(img_vis_unique)
         x_lwir = self.extract_feat_lwir(img_lwir_unique)
         x ,_,_= self.FeaFusion(x_vis, x_lwir, x_common, img_vis, img_lwir)
