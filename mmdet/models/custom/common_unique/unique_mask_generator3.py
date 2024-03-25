@@ -64,7 +64,6 @@ class MaskFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, mask_list_):
-        # 计算 mask
         mask_list_topk ,topk_index = mask_list_.topk(320)
         mask_list_min = torch.min(mask_list_topk, dim=1).values
         mask_list_min_ = mask_list_min.unsqueeze(-1)
@@ -76,7 +75,6 @@ class MaskFunction(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_output):
-        # 由于 mask 是根据 input_tensor 计算得来的，因此将梯度传递给 input_tensor
         return grad_output
 
 
