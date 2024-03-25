@@ -150,4 +150,5 @@ if __name__=='__main__':
     im1 = cv2.imread(root+file1, flags=1)
     im2 = cv2.imread(root+file2, flags=1)
     f= im1+im2
+>>>>>>> e3326f47c63f9316a17b0d58dc8e68788e66a420
     cv2.imwrite(root+'f_'+file1, f)

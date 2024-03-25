@@ -1,21 +1,25 @@
 <div align="center">
 <h1>RSDet </h1>
 <h3>Removal and Selection: Improving RGB Infrared Object Detection via Coarse to Fine Fusion</h3>
+  
 Paper: ([arXiv 2401.10731](https://arxiv.org/abs/2401.10731))
+
 </div>
+
 Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** framework, this project modifies its data flow and related classes and functions, and changes the MMdetection to a multi-modal detection framework to facilitate **RGBT Object Detection**.
 
-## Overview
+## **Overview**
 
-![image-20240312011746031](D:\学习\Multmodel detection\IJCAI2024\mmdetection_RGBT_for_opensource\RSDet\README.assets\image-20240312011746031.png)
+<p align="center">
+  <img src="README.assets\image-20240312011746031.png" alt="overview" width="90%">
+</p>
 
-
-## Main Results
+## **Main Results**
 
 **`Dataset: FLIR, LLVIP and Kaist`**
 
 
-## Getting Started
+## **Getting Started**
 
 ### Installation
 
@@ -53,7 +57,12 @@ pip install -v -e .
 pip install -r requirements.txt
 pip install -r requirements_rgbt.txt
 ```
-## Citation
+
+## **Result**
+
+[Kaist Result](https://drive.google.com/file/d/11tiHFCRG8ubt23g-BN1wY3W94pYNimL0/view?usp=sharing)
+
+## **Citation**
 
 ```
 @article{zhao2024removal,
@@ -63,5 +72,8 @@ pip install -r requirements_rgbt.txt
   year={2024}
 }
 ```
+## :white_check_mark: Updates
+* **` March. 19th, 2024`**: Update: we have updated the source about one version bug. 
 
-## Acknowledgment
+* **` March. 12th, 2024`:** The source code is provided. 
+## **Acknowledgment**

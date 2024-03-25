@@ -64,7 +64,6 @@ class MaskFunction(torch.autograd.Function):
 
     @staticmethod
     def forward(ctx, mask_list_):
-        # 计算 mask
         mask_list_topk ,topk_index = mask_list_.topk(320)
         mask_list_min = torch.min(mask_list_topk, dim=1).values
         mask_list_min_ = mask_list_min.unsqueeze(-1)
@@ -76,7 +75,6 @@ class MaskFunction(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_output):
-        # 由于 mask 是根据 input_tensor 计算得来的，因此将梯度传递给 input_tensor
         return grad_output
 
 
@@ -121,68 +119,6 @@ class UniqueMaskGenerator3(BaseModule):
 
         mask_vis = F.interpolate(mask_vis_list, scale_factor=[self.imgshape[0] / self.patch_num, self.imgshape[1] / self.patch_num], mode='nearest')
         mask_lwir = F.interpolate(mask_lwir_list, scale_factor=[self.imgshape[0] / self.patch_num, self.imgshape[1] / self.patch_num], mode='nearest')
-        # mask_vis_list_topk ,topk_index_vis = mask_vis_list_.topk(320)
-        # mask_lwir_list_topk,topk_index_lwir = mask_lwir_list_.topk(320)
-        #
-        # mask_vis_list_min = torch.min(mask_vis_list_topk, dim=1).values
-        # mask_lwir_list_min = torch.min(mask_lwir_list_topk, dim=1).values
-        #
-        # # repeat里的4和x的最后一维相同
-        # mask_vis_list_min_= mask_vis_list_min.unsqueeze(-1)
-        # mask_lwir_list_min_= mask_lwir_list_min.unsqueeze(-1)
-        # ge_vis = torch.ge(mask_vis_list_, mask_vis_list_min_)
-        # ge_lwir = torch.ge(mask_lwir_list_, mask_lwir_list_min_)
-        # # mask_ = torch.where(ge_vis, mask_vis_list, torch.tensor(0.).cuda()).reshape(
-        # #     (-1, 1, self.patch_num, self.patch_num))
-        #
-        # # 设置zero变量，方便后面的where操作
-        # zero = torch.zeros_like(mask_vis_list_)
-        # one = torch.ones_like(mask_vis_list_)
-        # mask_vis_list = torch.where(ge_vis, one, zero).reshape((-1,1,self.patch_num,self.patch_num))
-        # mask_lwir_list = torch.where(ge_lwir, one, zero).reshape((-1,1,self.patch_num,self.patch_num))
-        # if self.keep_low:
-        #     mask_vis_list[:, :, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1] = 1
-        #     mask_lwir_list[:, :, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1] = 1
-        #
-        # else:
-        #     mask_vis_list[:, :, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1] = 0
-        #     mask_lwir_list[:, :, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1, int(self.patch_num/2) - 1:int(self.patch_num/2) + 1] = 0
-        # mask_vis = F.interpolate(mask_vis_list,
-        #                          scale_factor=[self.imgshape[0] / self.patch_num, self.imgshape[1] / self.patch_num],
-        #                          mode='nearest')
-        #
-        # mask_lwir = F.interpolate(mask_lwir_list,
-        #                          scale_factor=[self.imgshape[0] / self.patch_num, self.imgshape[1] / self.patch_num],
-        #                          mode='nearest')
-
-        # import cv2
-        # import numpy as np
-        # cv2.imwrite('/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/test_vis.png',np.array(255*mask_vis[0].permute(1,2,0).cpu()))
-        # cv2.imwrite('/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/test_lwir.png',
-        #             np.array(255 * mask_lwir[0].permute(1, 2, 0).cpu()))
 
         return mask_vis, mask_lwir
 
-
-if __name__ == '__main__':
-    from PIL import Image
-    import torch
-    import cv2
-    import numpy as np
-    import torch
-
-    # edge extract test
-    data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/test/'
-    save_root = '/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/models/custom/common_unique/'
-    img_lwir_filename = 'FLIR_08865_PreviewData.jpeg'
-    img_filename = 'FLIR_08865_RGB.jpg'
-    im_lwir = cv2.imread(data_root + img_lwir_filename, flags=1)
-    im = cv2.imread(data_root + img_filename, flags=1)
-
-    fre = torch.fft.fft2(torch.tensor(im), dim=(0, 1))
-    freq_view = torch.log(1 + torch.abs(fre))
-    freq_view = (freq_view - freq_view.min()) / (freq_view.max() - freq_view.min()) * 255
-    freq_view = torch.fft.fftshift(freq_view)
-    cv2.imwrite(save_root + 'rgbfre_' + img_filename, np.array(freq_view))
-    cv2.imwrite(save_root + img_filename, np.array(im))
-    cv2.imwrite(save_root + img_lwir_filename, np.array(im_lwir))
