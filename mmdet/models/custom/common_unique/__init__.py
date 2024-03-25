@@ -9,8 +9,9 @@ from .unique_mask_generator2 import UniqueMaskGenerator2
 from .conv11_fusion2 import Conv11_Fusion2
 from .unique_mask_generator3 import UniqueMaskGenerator3
 from .conv11_fusion3 import Conv11_Fusion3
+from .conv11_fusion4 import Conv11_Fusion4
 __all__ = [
     'CommonFeatureGenerator','UniqueMaskGenerator','Conv11_Fusion',
     'CommonFeatureGenerator2', 'UniqueMaskGenerator2', 'Conv11_Fusion2',
-    'UniqueMaskGenerator3','Conv11_Fusion3'
+    'UniqueMaskGenerator3','Conv11_Fusion3','Conv11_Fusion4'
 ]

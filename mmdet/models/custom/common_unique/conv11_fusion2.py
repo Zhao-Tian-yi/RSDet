@@ -230,7 +230,8 @@ class Conv11_Fusion2(BaseModule):
         gate = F.softmax(gate, dim=1)
         x_vis_exclusive = self.expert_vis(x_vis)
         x_lwir_exclusive = self.expert_lwir(x_lwir)
-
+        import pdb
+        pdb.set_trace()
         # if torch.abs(gate[0,0]-gate[0,1])>0.7:
         #     if gate[0,0]-gate[0,1]>0.7:
         #         gate[0,0] = 1

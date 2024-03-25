@@ -63,8 +63,8 @@ class CommonFeatureGenerator2(BaseModule):
     ) -> None:
         super(CommonFeatureGenerator2,self).__init__()
         num_channels =3
-        self.MILoss1 = MODELS.build(loss_MI1)
-        self.MILoss2 = MODELS.build(loss_MI2)
+        # self.MILoss1 = MODELS.build(loss_MI1)
+        # self.MILoss2 = MODELS.build(loss_MI2)
         self.EE = Extract_Edge()
         self.strides = strides
 
@@ -95,9 +95,9 @@ class CommonFeatureGenerator2(BaseModule):
         img_fused_edge = 0.05*img_fused_edge
 
 
-        miloss1 = self.MILoss1(x_vis_[1] ,x_lwir_[1])/(x_lwir_[1].shape[2]*x_lwir_[1].shape[3])
-        miloss2 = self.MILoss2(x_vis_[2] ,x_lwir_[2])/(x_lwir_[2].shape[2]*x_lwir_[2].shape[3])
-        MIloss =miloss1+miloss2
+        # miloss1 = self.MILoss1(x_vis_[1] ,x_lwir_[1])/(x_lwir_[1].shape[2]*x_lwir_[1].shape[3])
+        # miloss2 = self.MILoss2(x_vis_[2] ,x_lwir_[2])/(x_lwir_[2].shape[2]*x_lwir_[2].shape[3])
+        # MIloss =miloss1+miloss2
 
         x_vis = self.neck_vis(x_vis_)
         x_lwir = self.neck_lwir(x_lwir_)
@@ -116,7 +116,7 @@ class CommonFeatureGenerator2(BaseModule):
 
         common_features= tuple(x_common_list)
 
-        return common_features,-MIloss
+        return common_features
 
 
 
