@@ -1,5 +1,5 @@
-## **Future**
-The paper is under review, and this code repository will be updated after accepted
+
+**Noted:  The paper is under review, and this code repository will be updated after it is accepted**
 
 <div align="center">
 <h1>RSDet </h1>
