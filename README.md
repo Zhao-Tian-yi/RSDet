@@ -1,3 +1,6 @@
+## **Future**
+The paper is under review, and this code repository will be updated after accepted
+
 <div align="center">
 <h1>RSDet </h1>
 <h3>Removal and Selection: Improving RGB Infrared Object Detection via Coarse to Fine Fusion</h3>
@@ -62,8 +65,7 @@ pip install -r requirements_rgbt.txt
 
 [Kaist Result](https://drive.google.com/file/d/11tiHFCRG8ubt23g-BN1wY3W94pYNimL0/view?usp=sharing)
 
-## **Future**
-The paper is under review, and this code repository will be updated after accepted
+
 
 ## **Citation**
 
