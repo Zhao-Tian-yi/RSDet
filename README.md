@@ -3,7 +3,7 @@
 
 <div align="center">
 <h1>RSDet </h1>
-<h3>Removal and Selection: Improving RGB Infrared Object Detection via Coarse to Fine Fusion</h3>
+<h3>Removal then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection</h3>
   
 Paper: ([arXiv 2401.10731](https://arxiv.org/abs/2401.10731))
 
