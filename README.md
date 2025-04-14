@@ -60,12 +60,14 @@ pip install -r requirements_rgbt.txt
 ## **Abaltion Study**
 ![image](https://github.com/user-attachments/assets/118de949-88b7-4652-abee-8f91b10b8c76)
 ![image](https://github.com/user-attachments/assets/c0b4c2e6-8a6e-488f-b587-de68cd7227c0)
-![image](https://github.com/user-attachments/assets/b0cebb1b-6527-4b5b-83c6-d97f8622b828)
+![image](https://github.com/user-attachments/assets/503d57e9-e856-4b82-8b63-dbb17853df97)
+
 
 
 ## **Experiment Result**
 
-[Kaist Result](https://drive.google.com/file/d/11tiHFCRG8ubt23g-BN1wY3W94pYNimL0/view?usp=sharing)
+[Kaist Result TXT Files Download link](https://drive.google.com/file/d/11tiHFCRG8ubt23g-BN1wY3W94pYNimL0/view?usp=sharing)
+![image](https://github.com/user-attachments/assets/3a2ab115-704f-4788-8e0f-9344301873bb)
 
 
 
