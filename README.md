@@ -17,9 +17,6 @@ Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** 
   <img src="README.assets\image-20240312011746031.png" alt="overview" width="90%">
 </p>
 
-## **Main Results**
-
-**`Dataset: FLIR, LLVIP and Kaist`**
 
 
 ## **Getting Started**
@@ -60,6 +57,11 @@ pip install -v -e .
 pip install -r requirements.txt
 pip install -r requirements_rgbt.txt
 ```
+## **Abaltion Study**
+![image](https://github.com/user-attachments/assets/118de949-88b7-4652-abee-8f91b10b8c76)
+![image](https://github.com/user-attachments/assets/c0b4c2e6-8a6e-488f-b587-de68cd7227c0)
+![image](https://github.com/user-attachments/assets/b0cebb1b-6527-4b5b-83c6-d97f8622b828)
+
 
 ## **Experiment Result**
 
