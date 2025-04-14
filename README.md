@@ -61,7 +61,7 @@ pip install -r requirements.txt
 pip install -r requirements_rgbt.txt
 ```
 
-## **Result**
+## **Experiment Result**
 
 [Kaist Result](https://drive.google.com/file/d/11tiHFCRG8ubt23g-BN1wY3W94pYNimL0/view?usp=sharing)
 
