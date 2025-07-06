@@ -9,7 +9,7 @@ Paper: ([arXiv 2401.10731](https://arxiv.org/abs/2401.10731))
 
 </div>
 
-Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** framework, this project modifies its data flow and related classes and functions, and changes the MMdetection to a multi-modal detection framework to facilitate **RGBT Object Detection**.
+Based on the **[MMdetection](https://github.com/open-mmlab/mmdetection) 3.1.0** framework, this project modifies its data flow and related classes and functions, and changes the MMdetection to a multi-modal detection framework to facilitate **RGBT Object Detection**. 
 
 ## **Overview**
 
