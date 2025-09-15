@@ -1,5 +1,5 @@
 
-**Noted:  The paper is under review, and this code repository will be updated after it is accepted**
+**Noted:  The paper is still under review. The current open-source repo is a RGBT object detection framework based the mmdetection(mmdet3.0) and the code related RSDet method will be updated after the paper accepted**
 
 <div align="center">
 <h1>RSDet </h1>
