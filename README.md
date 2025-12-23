@@ -74,12 +74,17 @@ pip install -r requirements_rgbt.txt
 ## **Citation**
 
 ```
-@article{zhao2024removal,
-  title={Removal and Selection: Improving RGB-Infrared Object Detection via Coarse-to-Fine Fusion},
-  author={Zhao, Tianyi and Yuan, Maoxun and Wei, Xingxing},
-  journal={arXiv preprint arXiv:2401.10731},
-  year={2024}
-}
+@ARTICLE{11278552,
+  author={Zhao, Tianyi and Yuan, Maoxun and Jiang, Feng and Wang, Nan and Wei, Xingxing},
+  journal={IEEE Transactions on Intelligent Transportation Systems}, 
+  title={Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-16},
+  keywords={Object detection;Feature extraction;Lighting;Detectors;Information filters;Filtering theory;Representation learning;Attenuation;Reliability;Location awareness;Coarse-to-fine fusion;mixture of experts;multisensory fusion;RGB-IR object detection},
+  doi={10.1109/TITS.2025.3638627}}
+
 ```
 ## :white_check_mark: Updates
 * **` March. 19th, 2024`**: Update: we have updated the source about one version bug. 
