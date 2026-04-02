@@ -1,11 +1,8 @@
-
-**Noted:  The paper is still under review. The current open-source repo is a RGBT object detection framework based the mmdetection(mmdet3.0) and the code related RSDet method will be updated after the paper accepted**
-
 <div align="center">
 <h1>RSDet </h1>
 <h3>Removal then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection</h3>
   
-Paper: ([arXiv 2401.10731](https://arxiv.org/abs/2401.10731))
+Paper: ([Link](https://ieeexplore.ieee.org/document/11278552))
 
 </div>
 
