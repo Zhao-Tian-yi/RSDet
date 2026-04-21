@@ -1,66 +1,69 @@
-# RSDet
+<div align="center">
+<h1>RSDet </h1>
+<h2>Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection</h2>
+Paper Link: [IEEE T-ITS](https://ieeexplore.ieee.org/document/11278552)
 
-## Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection
+</div>
 
-[IEEE T-ITS Paper](https://ieeexplore.ieee.org/document/11278552)
+![image-20240312011746031](README.assets/\image-20240312011746031.png)
 
-RSDet is an RGB-Infrared object detector built on top of [MMDetection](https://github.com/open-mmlab/mmdetection). This repository provides a paper-aligned open-source implementation centered on the final `15th` core version of the method.
+## Citation
 
-## Highlights
+```
+@ARTICLE{11278552,
+  author={Zhao, Tianyi and Yuan, Maoxun and Jiang, Feng and Wang, Nan and Wei, Xingxing},
+  journal={IEEE Transactions on Intelligent Transportation Systems}, 
+  title={Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection}, 
+  year={2026},
+  volume={27},
+  number={2},
+  pages={2504-2519},
+  keywords={Object detection;Feature extraction;Lighting;Detectors;Information filters;Filtering theory;Representation learning;Attenuation;Reliability;Location awareness;Coarse-to-fine fusion;mixture of experts;multisensory fusion;RGB-IR object detection},
+  doi={10.1109/TITS.2025.3638627}}
 
-- Paper-aligned `RSDet` implementation based on the final project version
-- Coarse-to-fine pipeline with frequency-domain removal and dynamic feature selection
-- Multi-dataset support for RGB-Infrared detection
-- Compatible with the MMDetection training and evaluation workflow
+```
 
-## Method Overview
 
-RSDet follows four main stages:
+## Getting Started
 
-1. `FrequencyRemovalModule`
-   Removes redundant information in the frequency domain and preserves informative modality-unique content.
-2. `SharedFeatureGenerator`
-   Builds shared RGB-Infrared representations from the filtered inputs.
-3. `DynamicFeatureSelection`
-   Produces modality-exclusive features and dynamically fuses them with shared features.
-4. `Faster R-CNN Detector`
-   Consumes the fused multi-scale features for final detection.
+### Installation
 
-## Paper-Aligned Naming
+Refer to the official mmdet documentation : [mmdetection installation](https://mmdetection.readthedocs.io/en/latest/get_started.html)
 
-The open-source implementation renames key modules to match the paper terminology:
+**Step 1: Clone the RSDet repository:**
 
-- `RSDet_15th` -> `RSDet`
-- `UniqueMaskGenerator4` -> `FrequencyRemovalModule`
-- `CommonFeatureGenerator3` -> `SharedFeatureGenerator`
-- `Conv11_Fusion4` -> `DynamicFeatureSelection`
-
-Core implementation files:
-
-- [`mmdet/models/detectors/rsdet.py`](./mmdet/models/detectors/rsdet.py)
-- [`mmdet/models/custom/common_unique/rsdet_frequency_removal.py`](./mmdet/models/custom/common_unique/rsdet_frequency_removal.py)
-- [`mmdet/models/custom/common_unique/rsdet_shared_feature_generator.py`](./mmdet/models/custom/common_unique/rsdet_shared_feature_generator.py)
-- [`mmdet/models/custom/common_unique/rsdet_selection_fusion.py`](./mmdet/models/custom/common_unique/rsdet_selection_fusion.py)
-
-## Installation
-
-Please first install MMDetection and its dependencies by following the official guide:
-
-[MMDetection Installation Guide](https://mmdetection.readthedocs.io/en/latest/get_started.html)
-
-Then clone this repository and install it in editable mode:
+To get started, first clone the RSDet repository and navigate to the project directory:
 
 ```bash
 git clone https://github.com/Zhao-Tian-yi/RSDet.git
 cd RSDet
+```
 
-conda create -n rsdet python=3.9 -y
-conda activate rsdet
+**Step 2: Environment Setup:**
 
+RSDet recommends setting up a conda environment and installing dependencies via pip. Use the following commands to set up your environment:
+
+***Create and activate a new conda environment***
+
+```bash
+conda create -n RSDet python=3.7
+conda activate RSDet
+```
+
+***If you develop and run mmdet directly, install it from source***
+
+```
 pip install -v -e .
+```
+
+***Install Dependencies***
+
+```bash
 pip install -r requirements.txt
 pip install -r requirements_rgbt.txt
 ```
+
+
 
 ## Data Preparation
 
@@ -70,7 +73,7 @@ Suggested directory layout:
 
 ```text
 RSDet/
-├── data/
+├── Datasets_Dir/
 │   ├── FLIR_align/
 │   ├── LLVIP/
 │   ├── M3FD/
@@ -80,7 +83,7 @@ RSDet/
     └── resnet50_cityscape.pth
 ```
 
-Current dataset base configs:
+dataset base configs:
 
 - [`configs/_base_/datasets/FLIR.py`](./configs/_base_/datasets/FLIR.py)
 - [`configs/_base_/datasets/LLVIP.py`](./configs/_base_/datasets/LLVIP.py)
@@ -90,7 +93,7 @@ Current dataset base configs:
 
 ## Pretrained Backbone
 
-The released RSDet configs expect the backbone checkpoint at:
+The released RSDet configs expect the backbone checkpoint at: [Download Link](https://pan.baidu.com/s/1RsRpnRNuwIPC2eilGWQ-fQ?pwd=m6cc)
 
 ```text
 pretrain/resnet50_cityscape.pth
@@ -106,23 +109,10 @@ This branch currently includes the following paper-aligned RSDet configs:
 - [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_KAIST.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_KAIST.py)
 - [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_LLVIP.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_LLVIP.py)
 - [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD.py)
-- [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD_classaware.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD_classaware.py)
 - [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py)
-- [`configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD_classaware.py`](./configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD_classaware.py)
+
 
 ## Training
-
-Single-GPU examples:
-
-```bash
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_FLIR.py
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_KAIST.py
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_LLVIP.py
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD.py
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py
-```
-
-Multi-GPU examples:
 
 ```bash
 ./tools/dist_train.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_FLIR.py 4
@@ -132,41 +122,17 @@ Multi-GPU examples:
 ./tools/dist_train.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py 4
 ```
 
-Class-aware sampler variants:
-
-```bash
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD_classaware.py
-python tools/train.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD_classaware.py
-```
-
 ## Testing
-
-Single-GPU examples:
-
-```bash
-python tools/test.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_FLIR.py /path/to/checkpoint.pth
-python tools/test.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_KAIST.py /path/to/checkpoint.pth
-python tools/test.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_LLVIP.py /path/to/checkpoint.pth
-python tools/test.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD.py /path/to/checkpoint.pth
-python tools/test.py configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py /path/to/checkpoint.pth
-```
-
-Multi-GPU examples:
+You can download our trained model weights for testing: [Model CKPT Download Links](https://pan.baidu.com/s/1RsRpnRNuwIPC2eilGWQ-fQ?pwd=m6cc).
 
 ```bash
 ./tools/dist_test.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_FLIR.py /path/to/checkpoint.pth 4
-./tools/dist_test.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_KAIST.py /path/to/checkpoint.pth 4
 ./tools/dist_test.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_LLVIP.py /path/to/checkpoint.pth 4
 ./tools/dist_test.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_M3FD.py /path/to/checkpoint.pth 4
 ./tools/dist_test.sh configs/fusion/RSDet/faster_rcnn_r50_rsdet_MFAD.py /path/to/checkpoint.pth 4
 ```
 
-## Notes
-
-- This open-source branch keeps the MMDetection project structure for compatibility.
-- The main RSDet release path is aligned with the final `15th` implementation.
-- The frequency removal stage uses `topk = 320` to match the paper setting.
-- Several legacy experimental modules are retained for reference, but the configs listed above are the recommended starting points.
+KAIST detection results of RSDet method: [txt files](https://pan.baidu.com/s/1RsRpnRNuwIPC2eilGWQ-fQ?pwd=m6cc), open the [KAISTdevkit-matlab-wrapper](https://github.com/CalayZhou/MBNet/tree/master/KAISTdevkit-matlab-wrapper) and run the demo_test.m.
 
 ## Dataset Layout
 
@@ -176,7 +142,7 @@ Recommended directory layout:
 
 ```text
 RSDet/
-├── data/
+├── Datasets_Dir/
 │   ├── FLIR_align/
 │   │   ├── train/
 │   │   ├── test/
@@ -206,8 +172,6 @@ RSDet/
     └── resnet50_cityscape.pth
 ```
 
-For paired loading, the annotation file should store both visible and infrared image paths in the format expected by `MultispectralDataset` and `LoadPairedImageFromFile`.
-
 ## Paths To Modify
 
 If your local directory layout is different, update the following paths before training:
@@ -226,25 +190,6 @@ If your local directory layout is different, update the following paths before t
 - Pretrained backbone checkpoint:
   Modify `pretrained_backbone` in the RSDet config you use under [`configs/fusion/RSDet`](./configs/fusion/RSDet).
   The default value is `pretrain/resnet50_cityscape.pth`.
-
-- Optional debug or analysis scripts:
-  If you use files under [`utils`](./utils), pass your own input paths or update the script arguments accordingly.
-
-In most cases, preparing `data/...` and `pretrain/...` with the default names is the easiest option, because then no additional config edits are needed.
-
-## Citation
-
-If you find this project useful, please cite:
-
-```bibtex
-@ARTICLE{11278552,
-  author={Zhao, Tianyi and Yuan, Maoxun and Jiang, Feng and Wang, Nan and Wei, Xingxing},
-  journal={IEEE Transactions on Intelligent Transportation Systems},
-  title={Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection},
-  year={2025},
-  doi={10.1109/TITS.2025.3638627}
-}
-```
 
 ## Acknowledgment
 
