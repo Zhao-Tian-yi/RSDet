@@ -4,7 +4,7 @@ classes = ('car', 'person', 'bicycle')
 device = 'cpu'
 model = dict(
     use_lsj=False, data_preprocessor=dict(pad_mask=False, batch_augments=None))
-data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/'
+data_root = 'data/FLIR_align/'
 # train_pipeline, NOTE the img_scale and the Pad's size_divisor is different
 # from the default setting in mmdet.
 train_pipeline = [

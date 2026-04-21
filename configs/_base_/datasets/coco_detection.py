@@ -1,6 +1,6 @@
 # dataset settings
 dataset_type = 'CocoDataset'
-data_root = '/home/yuanmaoxun/Datasets/FLIR_align/'
+data_root = 'data/coco/'
 
 # dataset_type = 'CocoDataset'
 # data_root = 'data/coco/'

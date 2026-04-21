@@ -230,8 +230,8 @@ if __name__ == '__main__':
     import torch
 
     # edge extract test
-    data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/test/'
-    save_root = '/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/models/custom/common_unique/'
+    data_root = 'data/FLIR_align/test/'
+    save_root = 'debug_outputs/common_unique/'
     img_lwir_filename = 'FLIR_08865_PreviewData.jpeg'
     img_filename = 'FLIR_08865_RGB.jpg'
     im_lwir = cv2.imread(data_root + img_lwir_filename, flags=1)

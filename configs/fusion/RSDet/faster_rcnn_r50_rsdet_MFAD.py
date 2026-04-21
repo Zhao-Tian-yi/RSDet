@@ -5,6 +5,7 @@ _base_ = [
 ]
 
 image_shape = (1024, 1280)
+pretrained_backbone = 'pretrain/resnet50_cityscape.pth'
 
 model = dict(
     type='RSDet',
@@ -27,9 +28,7 @@ model = dict(
         norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=True,
         style='pytorch',
-        init_cfg=dict(
-            type='Pretrained',
-            checkpoint='/home/zhaotianyi/RSDet/pretrain/resnet50_cityscape.pth'),
+        init_cfg=dict(type='Pretrained', checkpoint=pretrained_backbone),
     ),
     removal_module=dict(
         type='FrequencyRemovalModule',
@@ -51,9 +50,7 @@ model = dict(
             norm_cfg=dict(type='BN', requires_grad=True),
             norm_eval=True,
             style='pytorch',
-            init_cfg=dict(
-                type='Pretrained',
-                checkpoint='/home/zhaotianyi/RSDet/pretrain/resnet50_cityscape.pth'),
+            init_cfg=dict(type='Pretrained', checkpoint=pretrained_backbone),
         ),
         neck=dict(
             type='FPN',

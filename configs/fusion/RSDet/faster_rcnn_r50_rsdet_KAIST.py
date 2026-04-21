@@ -1,19 +1,20 @@
 _base_ = [
-    '../../_base_/datasets/MFAD_ClassAwareSampler.py',
-    '../../_base_/schedules/schedule_2x.py',
+    '../../_base_/datasets/KAIST.py',
+    '../../_base_/schedules/schedule_1x.py',
     '../../_base_/default_runtime.py',
 ]
 
-image_shape = (1024, 1280)
+image_shape = (512, 640)
+pretrained_backbone = 'pretrain/resnet50_cityscape.pth'
 
 model = dict(
     type='RSDet',
     data_preprocessor=dict(
         type='PairedDetDataPreprocessor',
-        mean=[159.8808906080302, 162.22057018543336, 160.28301196773916],
-        std=[56.96897676312916, 59.57937492901139, 63.11906486423505],
-        mean_lwir=[136.63746562356317, 136.63746562356317, 136.63746562356317],
-        std_lwir=[64.97730349740912, 64.97730349740912, 64.97730349740912],
+        mean=[89.66648694980788, 83.26756054104591, 73.86446594966917],
+        std=[67.94445518561298, 64.89608000533796, 65.94380825271665],
+        mean_lwir=[44.38315715455695, 42.463343709060204, 44.38315715455695],
+        std_lwir=[28.421897802687692, 28.300470549727773, 28.421897802687692],
         bgr_to_rgb=True,
         pad_mask=True,
         pad_size_divisor=32,
@@ -27,9 +28,7 @@ model = dict(
         norm_cfg=dict(type='BN', requires_grad=True),
         norm_eval=True,
         style='pytorch',
-        init_cfg=dict(
-            type='Pretrained',
-            checkpoint='/home/zhaotianyi/RSDet/pretrain/resnet50_cityscape.pth'),
+        init_cfg=dict(type='Pretrained', checkpoint=pretrained_backbone),
     ),
     removal_module=dict(
         type='FrequencyRemovalModule',
@@ -51,9 +50,7 @@ model = dict(
             norm_cfg=dict(type='BN', requires_grad=True),
             norm_eval=True,
             style='pytorch',
-            init_cfg=dict(
-                type='Pretrained',
-                checkpoint='/home/zhaotianyi/RSDet/pretrain/resnet50_cityscape.pth'),
+            init_cfg=dict(type='Pretrained', checkpoint=pretrained_backbone),
         ),
         neck=dict(
             type='FPN',
@@ -82,8 +79,8 @@ model = dict(
         feat_channels=256,
         anchor_generator=dict(
             type='AnchorGenerator',
-            scales=[3, 8],
-            ratios=[0.33, 0.66, 1, 1.5, 3],
+            scales=[4, 8],
+            ratios=[0.41, 1, 2.44],
             strides=[4, 8, 16, 32, 64]),
         bbox_coder=dict(
             type='DeltaXYWHBBoxCoder',
@@ -104,7 +101,7 @@ model = dict(
             in_channels=259,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=6,
+            num_classes=1,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],

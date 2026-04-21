@@ -1,14 +1,5 @@
-# -*- encoding:utf-8 -*-
-# !/usr/bin/env python
-
-"""
-@author：Ty Zhao
-@fileName：KAIST.py
-@Date：2023/9/17
-@Description:
-"""
 dataset_type = 'MultispectralDataset'
-data_root = '/home/shared_directory/datasets/kaist-paired/'
+data_root = 'Datasets_Dir/KAIST/'
 backend_args = None
 classes = ('person', )
 train_pipeline = [
@@ -70,7 +61,7 @@ val_dataloader = dict(
         data_root=data_root,
         metainfo=dict(classes=classes),
         ann_file='kaist_test_data.json',
-        data_prefix=dict(img='/home/shared_directory/datasets/'),
+        data_prefix=dict(img=''),
         test_mode=True,
         pipeline=test_pipeline,
         backend_args=backend_args))

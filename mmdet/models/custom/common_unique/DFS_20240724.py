@@ -97,7 +97,7 @@ def tSNEvis(x_vis_exclusive,x_lwir_exclusive,x_common):
     # 不要坐标轴
     # plt_sne.axis("off")
     # 保存图像
-    fileroot = '/home/zhangguiwei/KK/codes/mmdet3-spectral/tSNE_vis/noMI'
+    fileroot = 'debug_outputs/tsne/no_mi'
     # 创建目标文件夹
     if not os.path.exists(fileroot):
         os.makedirs(fileroot)

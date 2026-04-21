@@ -70,7 +70,7 @@ model = dict(
     test_cfg=dict(score_thr=0.01, nms=dict(type='nms', iou_threshold=0.65)))
 
 # dataset settings
-data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/'
+data_root = 'data/FLIR_align/'
 dataset_type = 'MultispectralDataset'
 
 # Example to use different file client

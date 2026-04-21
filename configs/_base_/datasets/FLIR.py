@@ -1,14 +1,5 @@
-# -*- encoding:utf-8 -*-
-# !/usr/bin/env python
-
-"""
-@author：Ty Zhao
-@fileName：flir.py
-@Date：2023/9/17
-@Description:
-"""
 dataset_type = 'MultispectralDataset'
-data_root = '/home/shared_directory/datasets/FLIR_align/'
+data_root = 'Datasets_Dir/FLIR_align/'
 backend_args = None
 classes = ('car', 'person', 'bicycle')
 train_pipeline = [

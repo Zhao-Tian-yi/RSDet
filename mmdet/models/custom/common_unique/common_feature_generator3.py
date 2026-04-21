@@ -125,8 +125,8 @@ if __name__=='__main__':
     from PIL import Image
 
 # edge extract test
-    data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/test/'
-    save_root = '/home/zhangguiwei/KK/data_preprocess/'
+    data_root = 'data/FLIR_align/test/'
+    save_root = 'debug_outputs/data_preprocess/'
     img_filename = 'FLIR_08865_PreviewData.jpeg'
     im = cv2.imread(data_root+img_filename, flags=1)
     if len(im.shape)==3:
@@ -145,7 +145,7 @@ if __name__=='__main__':
 
 
 # simple fusion test
-    root = '/home/zhangguiwei/KK/data_preprocess/'
+    root = 'debug_outputs/data_preprocess/'
     file1 = 'edge_FLIR_08865_RGB.jpg'
     file2 =  'edge_FLIR_08865_PreviewData.jpeg'
     im1 = cv2.imread(root+file1, flags=1)
