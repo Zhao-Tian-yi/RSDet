@@ -1,11 +1,11 @@
 <div align="center">
-<h1>RSDet </h1>
+<h1>T-TIS 2026 RSDet </h1>
 <h2>Removal Then Selection: A Coarse-to-Fine Fusion Perspective for RGB-Infrared Object Detection</h2>
 Paper Link: [IEEE T-ITS](https://ieeexplore.ieee.org/document/11278552)
 
 </div>
 
-![image-20240312011746031](README.assets/image-20240312011746031.png)
+[image-20240312011746031](README.assets/image-20240312011746031.png)
 
 
 ## Citation
