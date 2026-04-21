@@ -5,7 +5,8 @@ Paper Link: [IEEE T-ITS](https://ieeexplore.ieee.org/document/11278552)
 
 </div>
 
-![image-20240312011746031](README.assets/\image-20240312011746031.png)
+![image-20240312011746031](README.assets/image-20240312011746031.png)
+
 
 ## Citation
 
