@@ -1,6 +1,6 @@
 _base_ = [
     # '../_base_/datasets/coco_detection.py',
-    '../_base_/datasets/LLVIP_lwir.py',
+    '/home/yuanmaoxun/RSDet/configs/_base_/datasets/coco_detection.py',
     '../_base_/default_runtime.py'
 ]
 model = dict(

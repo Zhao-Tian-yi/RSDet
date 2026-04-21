@@ -1,0 +1,10 @@
+.dist_test/
+build/
+debug/
+log/
+mmdet.egg-info/
+nohup.out
+pretrain/
+work_dirs/
+__pycache__/
+*.pyc

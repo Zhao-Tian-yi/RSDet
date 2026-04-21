@@ -12,7 +12,7 @@ from mmengine.runner import Runner
 from mmdet.engine.hooks.utils import trigger_visualization_hook
 from mmdet.evaluation import DumpDetResults
 from mmdet.registry import RUNNERS
-from mmdet.utils import setup_cache_size_limit_of_dynamo
+from mmdet.utils import register_all_modules, setup_cache_size_limit_of_dynamo
 
 
 # TODO: support fuse_conv_bn and format_only
@@ -69,6 +69,7 @@ def main():
     # Reduce the number of repeated compilations and improve
     # testing speed.
     setup_cache_size_limit_of_dynamo()
+    register_all_modules()
 
     # load config
     cfg = Config.fromfile(args.config)

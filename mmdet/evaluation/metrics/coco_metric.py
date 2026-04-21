@@ -70,7 +70,7 @@ class CocoMetric(BaseMetric):
     def __init__(self,
                  ann_file: Optional[str] = None,
                  metric: Union[str, List[str]] = 'bbox',
-                 classwise: bool = False,
+                 classwise: bool = True,
                  proposal_nums: Sequence[int] = (100, 300, 1000),
                  iou_thrs: Optional[Union[float, Sequence[float]]] = None,
                  metric_items: Optional[Sequence[str]] = None,

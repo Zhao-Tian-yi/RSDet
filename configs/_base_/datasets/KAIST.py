@@ -8,9 +8,9 @@
 @Description:
 """
 dataset_type = 'MultispectralDataset'
-data_root = 'Datasets/kaist-paired/'
+data_root = '/home/shared_directory/datasets/kaist-paired/'
 backend_args = None
-classes = ('person')
+classes = ('person', )
 train_pipeline = [
     dict(type='LoadPairedImageFromFile', to_float32=True),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
@@ -45,7 +45,7 @@ test_pipeline = [
         ]
 
 train_dataloader = dict(
-    batch_size=4,
+    batch_size=2,
     num_workers=4,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -70,7 +70,7 @@ val_dataloader = dict(
         data_root=data_root,
         metainfo=dict(classes=classes),
         ann_file='kaist_test_data.json',
-        data_prefix=dict(img='kaist_test/'),
+        data_prefix=dict(img='/home/shared_directory/datasets/'),
         test_mode=True,
         pipeline=test_pipeline,
         backend_args=backend_args))
@@ -81,7 +81,6 @@ val_evaluator = dict(
     ann_file=data_root + 'kaist_test_data.json',
     metric='bbox',
     format_only=False,
-    outfile_prefix = '/home/zhangguiwei/KK/codes/mmdet3-spectral/test_work-dir/results',
     backend_args=backend_args)
 test_evaluator = val_evaluator
 

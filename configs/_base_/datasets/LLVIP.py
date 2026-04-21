@@ -8,7 +8,7 @@
 @Description:
 """
 dataset_type = 'MultispectralDataset'
-data_root = '/home/zhangguiwei/KK/Datasets/LLVIP/'
+data_root = '/home/shared_directory/datasets/LLVIP/'
 backend_args = None
 classes = ('person')
 train_pipeline = [

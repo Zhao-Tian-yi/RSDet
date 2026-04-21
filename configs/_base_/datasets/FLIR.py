@@ -8,17 +8,16 @@
 @Description:
 """
 dataset_type = 'MultispectralDataset'
-data_root = '/home/yuanmaoxun/Datasets/FLIR_align/'
+data_root = '/home/shared_directory/datasets/FLIR_align/'
 backend_args = None
 classes = ('car', 'person', 'bicycle')
 train_pipeline = [
     dict(type='LoadPairedImageFromFile', to_float32=True),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
-    dict(type='PairedImagesResize', scale=(512, 640), keep_ratio=True),
-    # dict(type='PairedImagesResize', scale=(320, 256), keep_ratio=True),
+    # dict(type='PairedImagesResize', scale=(1280, 1024), keep_ratio=True),
+    dict(type='PairedImagesResize', scale=(1024, 1280), keep_ratio=True),
     dict(type='PairedImageRandomFlip', prob=0.5),
     # dict(type='PairedFrequencyProcess',alpha=a,beta=b),
-    # dict(type='PairedImagesRandomResize', scale=(1280,1024),ratio_range=(0.1, 2.0), keep_ratio=True),
     # dict(
     #     type='AlignedImagesRandomCrop',
     #     crop_type='absolute_range',
@@ -35,8 +34,8 @@ train_pipeline = [
 
 test_pipeline = [
     dict(type='LoadPairedImageFromFile', to_float32=True),
-    dict(type='PairedImagesResize', scale=(512, 640), keep_ratio=True),
-    # dict(type='PairedImagesResize', scale=(320, 256), keep_ratio=True),
+    # dict(type='PairedImagesResize', scale=(1280,1024), keep_ratio=True),
+    dict(type='PairedImagesResize', scale=(1024, 1280), keep_ratio=True),
     dict(type='PairedImagesPad', size_divisor=32),
     dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(type='PackPairedImagesDetInputs',
@@ -45,7 +44,7 @@ test_pipeline = [
         ]
 
 train_dataloader = dict(
-    batch_size=2,
+    batch_size=1,
     num_workers=4,
     # persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -61,7 +60,7 @@ train_dataloader = dict(
         backend_args=backend_args))
 val_dataloader = dict(
     batch_size=4,
-    num_workers=0,
+    num_workers=2,
     # persistent_workers=True,
     drop_last=False,
     sampler=dict(type='DefaultSampler', shuffle=False),
