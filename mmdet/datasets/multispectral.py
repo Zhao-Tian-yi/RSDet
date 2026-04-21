@@ -30,9 +30,10 @@ class MultispectralDataset(BaseDetDataset):
 
     # METAINFO ={ 'classes':('person',),  'palette':[(220, 20, 60),]}         #Kaist LLVIP CVC14
 
-
-    METAINFO = {'classes': ('car','person','bicycle'),  # FLIR
-                'palette': [(220, 20, 60), (119, 11, 32), (0, 0, 142)]}
+    # METAINFO = {'classes': ('car','person','bicycle'),  # FLIR
+    #             'palette': [(220, 20, 60), (119, 11, 32), (0, 0, 142)]}
+    METAINFO = {'classes': ('people', 'car', 'bus' , 'motorcycle', 'lamp', 'truck'),  # M3FD
+                'palette': [(220, 20, 60), (119, 11, 32), (0, 0, 142),(120, 210, 60), (19, 211, 32), (200, 0, 142)]}
 
     COCOAPI = COCO
     ANN_ID_UNIQUE = True
@@ -157,7 +158,6 @@ class MultispectralDataset(BaseDetDataset):
 
         if self.filter_cfg is None:
             return self.data_list
-
         filter_empty_gt = self.filter_cfg.get('filter_empty_gt', False)
         min_size = self.filter_cfg.get('min_size', 0)
 

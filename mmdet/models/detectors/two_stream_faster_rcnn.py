@@ -1,5 +1,4 @@
 # from ..builder import DETECTORS
-from .two_stream_two_stage_simple_fusion import TwoStreamTwoStageSimpleFusionDetector
 from mmdet.registry import MODELS
 from .faster_rcnn import FasterRCNN
 from mmengine.config import ConfigDict
@@ -35,12 +34,10 @@ class TwoStreamFasterRCNN(FasterRCNN):
             test_cfg=test_cfg,
             init_cfg=init_cfg,
             data_preprocessor=data_preprocessor)
-        self.backbone_vis = MODELS.build(backbone)
+        self.backbone = MODELS.build(backbone)
         self.backbone_lwir = MODELS.build(backbone)
-        self.r1=90
-        self.r2=190
         if neck is not None:
-            self.neck_vis = MODELS.build(neck)
+            self.neck = MODELS.build(neck)
             self.neck_lwir = MODELS.build(neck)
 
         if rpn_head is not None:
@@ -120,9 +117,9 @@ class TwoStreamFasterRCNN(FasterRCNN):
         return x
     def extract_visfeat(self, img):
         """Directly extract features from the backbone+neck."""
-        x = self.backbone_vis(img)
+        x = self.backbone(img)
         if self.with_neck:
-            x = self.neck_vis(x)
+            x = self.neck(x)
         return x
     def extract_lwirfeat(self, img):
         """Directly extract features from the backbone+neck."""
@@ -149,51 +146,14 @@ class TwoStreamFasterRCNN(FasterRCNN):
 
         img_vis = batch_inputs['img_vis']
         img_lwir = batch_inputs['img_lwir']
-        mask_lwir = torch.ones_like(img_lwir)
-        b, c, h, w = img_lwir.shape
-        for x in range(w):
-            for y in range(h):
-                if ((x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) < (self.r2 ** 2) and (
-                        (x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) > (self.r1 ** 2):
-                    mask_lwir[:, :, y, x] = 0
-        lwir_fre = torch.fft.fft2(img_lwir)
-        fre_m_lwir = torch.abs(lwir_fre)  # 幅度谱，求模得到
-        fre_m_lwir = torch.fft.fftshift(fre_m_lwir)
-        fre_p_lwir= torch.angle(lwir_fre)  # 相位谱，求相角得到
-        masked_fre_m_lwir = fre_m_lwir * mask_lwir
-        masked_fre_m_lwir = torch.fft.ifftshift(masked_fre_m_lwir)
-        fre_lwir= masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
 
-        img_lwir_ = torch.real(torch.fft.ifft2(fre_lwir))
-
-
-
-        mask_vis = torch.ones_like(img_vis)
-        b, c, h, w = img_vis.shape
-        for x in range(w):
-            for y in range(h):
-                if ((x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) < (self.r2 ** 2) and (
-                        (x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) > (self.r1 ** 2):
-                    mask_vis[:, :, y, x] = 0
-
-        vis_fre = torch.fft.fft2(img_vis)
-        fre_m_vis = torch.abs(vis_fre)  # 幅度谱，求模得到
-        fre_m_vis = torch.fft.fftshift(fre_m_vis)
-        fre_p_vis = torch.angle(vis_fre)  # 相位谱，求相角得到
-        masked_fre_m_vis = fre_m_vis * mask_vis
-        masked_fre_m_vis = torch.fft.ifftshift(masked_fre_m_vis)
-        fre_vis = masked_fre_m_vis * torch.e ** (1j * fre_p_vis)
-        # fre_vis = fre_m_vis * torch.e ** (1j * fre_p_vis)
-        img_vis_ = torch.real(torch.fft.ifft2(fre_vis))
-
-        x_vis = self.extract_visfeat(img_vis_)
-        x_lwir = self.extract_lwirfeat(img_lwir_)
+        x_vis = self.extract_visfeat(img_vis)
+        x_lwir = self.extract_lwirfeat(img_lwir)
         x = []
         # 两个流合成一个
         for i in range(len(x_vis)):
             x.append(0.5 * (x_vis[i] + x_lwir[i]))
         x = tuple(x)
-        losses = dict()
 
         if self.with_rpn:
             rpn_results_list = self.rpn_head.predict(
@@ -224,44 +184,11 @@ class TwoStreamFasterRCNN(FasterRCNN):
         """
         img_vis = batch_inputs['img_vis']
         img_lwir = batch_inputs['img_lwir']
-        mask_lwir = torch.ones_like(img_lwir)
-        b, c, h, w = img_lwir.shape
-        for x in range(w):
-            for y in range(h):
-                if ((x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) < (self.r2 ** 2) and (
-                        (x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) > (self.r1 ** 2):
-                    mask_lwir[:, :, y, x] = 0
-        lwir_fre = torch.fft.fft2(img_lwir)
-        fre_m_lwir = torch.abs(lwir_fre)  # 幅度谱，求模得到
-        fre_m_lwir = torch.fft.fftshift(fre_m_lwir)
-        fre_p_lwir = torch.angle(lwir_fre)  # 相位谱，求相角得到
-        masked_fre_m_lwir = fre_m_lwir * mask_lwir
-        masked_fre_m_lwir = torch.fft.ifftshift(masked_fre_m_lwir)
-        fre_lwir = masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
 
-        img_lwir_ = torch.real(torch.fft.ifft2(fre_lwir))
 
         x_vis = self.extract_visfeat(img_vis)
-        x_lwir = self.extract_lwirfeat(img_lwir_)
-        # mask_vis = torch.ones_like(img_vis)
-        # b,c,h,w = img_vis.shape
-        # for x in range(w):
-        #     for y in range(h):
-        #         if ((x-(w-1)/2)**2 + (y-(h-1)/2)**2) < (self.r2**2) and((x-(w-1)/2)**2 + (y-(h-1)/2)**2) > (self.r1**2):
-        #             mask_vis[:,:,y,x] = 0
-        #
-        # vis_fre = torch.fft.fft2(img_vis)
-        # fre_m_vis = torch.abs(vis_fre)  # 幅度谱，求模得到
-        # fre_m_vis = torch.fft.fftshift(fre_m_vis)
-        # fre_p_vis = torch.angle(vis_fre)  # 相位谱，求相角得到
-        # masked_fre_m_vis = fre_m_vis * mask_vis
-        # masked_fre_m_vis = torch.fft.ifftshift(masked_fre_m_vis)
-        # fre_vis = masked_fre_m_vis * torch.e ** (1j * fre_p_vis)
-        # # fre_vis = fre_m_vis * torch.e ** (1j * fre_p_vis)
-        # img_vis_ = torch.real(torch.fft.ifft2(fre_vis))
-        #
-        # x_vis = self.extract_visfeat(img_vis_)
-        # x_lwir = self.extract_lwirfeat(img_lwir)
+        x_lwir = self.extract_lwirfeat(img_lwir)
+
         x = []
         # 两个流合成一个
         for i in range(len(x_vis)):
@@ -335,51 +262,14 @@ class TwoStreamFasterRCNN(FasterRCNN):
 
         img_vis = batch_inputs['img_vis']
         img_lwir = batch_inputs['img_lwir']
-        mask_lwir = torch.ones_like(img_lwir)
-        b, c, h, w = img_lwir.shape
-        for x in range(w):
-            for y in range(h):
-                if ((x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) < (self.r2 ** 2) and (
-                        (x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) > (self.r1 ** 2):
-                    mask_lwir[:, :, y, x] = 0
-        lwir_fre = torch.fft.fft2(img_lwir)
-        fre_m_lwir = torch.abs(lwir_fre)  # 幅度谱，求模得到
-        fre_m_lwir = torch.fft.fftshift(fre_m_lwir)
-        fre_p_lwir = torch.angle(lwir_fre)  # 相位谱，求相角得到
-        masked_fre_m_lwir = fre_m_lwir * mask_lwir
-        masked_fre_m_lwir = torch.fft.ifftshift(masked_fre_m_lwir)
-        fre_lwir = masked_fre_m_lwir * torch.e ** (1j * fre_p_lwir)
-
-        img_lwir_ = torch.real(torch.fft.ifft2(fre_lwir))
 
         x_vis = self.extract_visfeat(img_vis)
-        x_lwir = self.extract_lwirfeat(img_lwir_)
-        # mask_vis = torch.ones_like(img_vis)
-        # b, c, h, w = img_vis.shape
-        # for x in range(w):
-        #     for y in range(h):
-        #         if ((x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) < (self.r2 ** 2) and (
-        #                 (x - (w - 1) / 2) ** 2 + (y - (h - 1) / 2) ** 2) > (self.r1 ** 2):
-        #             mask_vis[:, :, y, x] = 0
-        #
-        # vis_fre = torch.fft.fft2(img_vis)
-        # fre_m_vis = torch.abs(vis_fre)  # 幅度谱，求模得到
-        # fre_m_vis = torch.fft.fftshift(fre_m_vis)
-        # fre_p_vis = torch.angle(vis_fre)  # 相位谱，求相角得到
-        # masked_fre_m_vis = fre_m_vis * mask_vis
-        # masked_fre_m_vis = torch.fft.ifftshift(masked_fre_m_vis)
-        # fre_vis = masked_fre_m_vis * torch.e ** (1j * fre_p_vis)
-        # # fre_vis = fre_m_vis * torch.e ** (1j * fre_p_vis)
-        # img_vis_ = torch.real(torch.fft.ifft2(fre_vis))
-        #
-        # x_vis = self.extract_visfeat(img_vis_)
-        # x_lwir = self.extract_lwirfeat(img_lwir)
+        x_lwir = self.extract_lwirfeat(img_lwir)
         x = []
         # 两个流合成一个
         for i in range(len(x_vis)):
             x.append(0.5 * (x_vis[i] + x_lwir[i]))
         x = tuple(x)
-        losses = dict()
 
         # If there are no pre-defined proposals, use RPN to get proposals
         if batch_data_samples[0].get('proposals', None) is None:

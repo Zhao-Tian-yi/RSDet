@@ -1,6 +1,6 @@
 _base_ = [
     # '../_base_/datasets/coco_detection.py',
-    '../_base_/datasets/LLVIP_lwir.py',
+    '../_base_/datasets/coco_detection.py',
     '../_base_/default_runtime.py'
 ]
 model = dict(
@@ -10,7 +10,9 @@ model = dict(
     dense_topk_ratio=1.5,
     with_box_refine=True,
     as_two_stage=True,
-    init_cfg=dict(type='Pretrained', checkpoint='/home/zhangguiwei/KK/codes/mmdet3-spectral/configs/ddq/ddq_detr_4scale_coco_1x.pth'),
+    init_cfg=dict(
+        type='Pretrained',
+        checkpoint='pretrain/ddq_detr_4scale_coco_1x.pth'),
     data_preprocessor=dict(
         type='DetDataPreprocessor',
         mean=[123.675, 116.28, 103.53],

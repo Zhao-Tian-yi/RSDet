@@ -61,7 +61,7 @@ class CommonFeatureGenerator2(BaseModule):
             backbone,
             neck
     ) -> None:
-        super(CommonFeatureGenerator2,self).__init__()
+        super(CommonFeatureGenerator3,self).__init__()
         num_channels =3
         # self.MILoss1 = MODELS.build(loss_MI1)
         # self.MILoss2 = MODELS.build(loss_MI2)
@@ -124,8 +124,8 @@ if __name__=='__main__':
     from PIL import Image
 
 # edge extract test
-    data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/test/'
-    save_root = '/home/zhangguiwei/KK/data_preprocess/'
+    data_root = 'data/FLIR_align/test/'
+    save_root = 'debug_outputs/data_preprocess/'
     img_filename = 'FLIR_08865_PreviewData.jpeg'
     im = cv2.imread(data_root+img_filename, flags=1)
     if len(im.shape)==3:
@@ -144,11 +144,10 @@ if __name__=='__main__':
 
 
 # simple fusion test
-    root = '/home/zhangguiwei/KK/data_preprocess/'
+    root = 'debug_outputs/data_preprocess/'
     file1 = 'edge_FLIR_08865_RGB.jpg'
     file2 =  'edge_FLIR_08865_PreviewData.jpeg'
     im1 = cv2.imread(root+file1, flags=1)
     im2 = cv2.imread(root+file2, flags=1)
     f= im1+im2
->>>>>>> e3326f47c63f9316a17b0d58dc8e68788e66a420
     cv2.imwrite(root+'f_'+file1, f)

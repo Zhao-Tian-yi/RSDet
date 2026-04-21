@@ -1,14 +1,5 @@
-# -*- encoding:utf-8 -*-
-# !/usr/bin/env python
-
-"""
-@author：Ty Zhao
-@fileName：LLVIP.py
-@Date：2023/9/17
-@Description:
-"""
 dataset_type = 'MultispectralDataset'
-data_root = '/home/zhangguiwei/KK/Datasets/LLVIP/'
+data_root = 'Datasets_Dir/LLVIP/'
 backend_args = None
 classes = ('person')
 train_pipeline = [

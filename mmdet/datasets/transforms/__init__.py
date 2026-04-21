@@ -20,7 +20,8 @@ from .transforms import (Albu, CachedMixUp, CachedMosaic, CopyPaste, CutOut,
                          RandomCenterCropPad, RandomCrop, RandomErasing,
                          RandomFlip, RandomShift, Resize, ResizeShortestEdge,
                          SegRescale, YOLOXHSVRandomAug,PairedImagesResize,
-                         PairedImagesRandomResize,PairedImagesPad,PairedImageRandomFlip,MultiScaleFlipAug,TestTimeAug,
+                         PairedImagesRandomResize,PairedImagesPad,PairedImageRandomFlip,
+                         MultiScaleFlipAug,TestTimeAug,PairedMosaic,PairedMixUp
                          )
 from .wrappers import MultiBranch, ProposalBroadcaster, RandomOrder
 
@@ -42,6 +43,6 @@ __all__ = [
     'LoadTrackAnnotations', 'BaseFrameSample', 'UniformRefFrameSample',
     'PackTrackInputs', 'PackReIDInputs', 'FixScaleResize', 'ResizeShortestEdge',
     'PairedImagesResize','PairedImagesRandomResize','PackPairedImagesDetInputs',
-    'PairedImageRandomFlip','MultiScaleFlipAug','TestTimeAug',
+    'PairedImageRandomFlip','MultiScaleFlipAug','TestTimeAug','PairedMosaic','PairedMixUp'
 ]
 

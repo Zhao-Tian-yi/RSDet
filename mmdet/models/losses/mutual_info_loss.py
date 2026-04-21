@@ -69,13 +69,14 @@ class MutualInfoLoss(nn.Module):
         logvar_rgb = self.fc2_rgb3(rgb_feat)
         mu_lwir = self.fc1_lwir3(lwir_feat)
         logvar_lwir = self.fc2_lwir3(lwir_feat)
-
+        # print(mu_rgb,mu_lwir)
         mu_lwir = self.tanh(mu_lwir)
         mu_rgb = self.tanh(mu_rgb)
+
         logvar_lwir = self.tanh(logvar_lwir)
         logvar_rgb = self.tanh(logvar_rgb)
         z_rgb = self.reparametrize(mu_rgb, logvar_rgb)
-        dist_rgb = Independent(Normal(loc=mu_rgb+10-8, scale=torch.exp(logvar_rgb+10-8)), 1)
+        dist_rgb = Independent(Normal(loc=mu_rgb+1e-8, scale=torch.exp(logvar_rgb+1e-8)), 1)
         z_lwir = self.reparametrize(mu_lwir, logvar_lwir)
         dist_lwir = Independent(Normal(loc=mu_lwir+10-8, scale=torch.exp(logvar_lwir+10-8)), 1)
         bi_di_kld = torch.mean(kl_divergence_loss(dist_rgb, dist_lwir)) + torch.mean(kl_divergence_loss(dist_lwir, dist_rgb))

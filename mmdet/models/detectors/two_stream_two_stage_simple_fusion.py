@@ -30,7 +30,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
                  test_cfg=None,
                  pretrained=None):
         super(TwoStreamTwoStageSimpleFusionDetector, self).__init__()
-        # add by yuanmaoxun
         self.backbone_vis = build_backbone(backbone)
         self.backbone_lwir = build_backbone(backbone)  # 完全相等的两个 backbone
 
@@ -80,7 +79,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
                 Defaults to None.
         """
         super(TwoStreamTwoStageSimpleFusionDetector, self).init_weights(pretrained)
-        # add by yuanmaoxun
         self.backbone_vis.init_weights(pretrained=pretrained)
         print("load vis backbone end!")
         self.backbone_lwir.init_weights(pretrained=pretrained)
@@ -91,7 +89,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
                     m.init_weights()
             else:
                 self.neck_vis.init_weights()
-            # add by yuan
             if isinstance(self.neck_lwir, nn.Sequential):
                 for m in self.neck_lwir:
                     m.init_weights()
@@ -108,7 +105,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
         if self.with_neck:
             x = self.neck(x)
         return x
-    # add by yuanmaoxun
     def extract_visfeat(self, img):
         """Directly extract features from the backbone+neck."""
         x = self.backbone_vis(img)
@@ -178,7 +174,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
-        # add by yuanmaoxun
         vis_x = self.extract_visfeat(img)
         lwir_x = self.extract_lwirfeat(img_lwir)
         x = []
@@ -289,7 +284,6 @@ class TwoStreamTwoStageSimpleFusionDetector(BaseDetector):
         return self.roi_head.aug_test(
             x, proposal_list, img_metas, rescale=rescale)
 
-    # add by yuanmaoxun
     def forward_test(self, imgs, imgs_lwir, img_metas, **kwargs):
         """
         Args:

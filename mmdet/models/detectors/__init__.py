@@ -58,8 +58,14 @@ from .yolo import YOLOV3
 from .yolof import YOLOF
 from .yolox import YOLOX
 from .two_stream_faster_rcnn import TwoStreamFasterRCNN
+from .two_stream_two_stage_cma_fusion import TwoStreamTwoStageCMAFusionDetector
+from .two_stream_two_stage_dmff_fusion import TwoStreamTwoStageDMFFFusionDetector
 from .two_stream_faster_rcnn_rsdet_14th import RSDet_14th
-
+from .two_stream_faster_rcnn_rsdet_14th_2backbone import RSDet_14th_2backbone
+from .two_stream_faster_rcnn_rsdet_15th import RSDet_15th
+from .two_stream_faster_rcnn_rsdet_15th_2backbone import RSDet_15th_2backbone
+from .rsdet import RSDet
+# from .two_stream_faster_rcnn_common_unique_14th import TwoStreamFasterRCNNCommonUnique_14th
 __all__ = [
     'ATSS', 'BaseDetector', 'SingleStageDetector', 'TwoStageDetector', 'RPN',
     'KnowledgeDistillationSingleStageDetector', 'FastRCNN', 'FasterRCNN',
@@ -72,5 +78,5 @@ __all__ = [
     'MaskFormer', 'DDOD', 'Mask2Former', 'SemiBaseDetector', 'SoftTeacher',
     'RTMDet', 'Detectron2Wrapper', 'CrowdDet', 'CondInst', 'BoxInst',
     'DetectionTransformer', 'ConditionalDETR', 'DINO', 'DABDETR', 'GLIP','DDQDETR'
-    , 'TwoStreamFasterRCNN' ,'RSDet_14th'
-]
+    ,'TwoStreamFasterRCNN' ,'RSDet_14th','RSDet_14th_2backbone','RSDet_15th',
+    'RSDet_15th_2backbone', 'RSDet']

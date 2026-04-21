@@ -198,8 +198,8 @@ class UniqueMaskGenerator2(BaseModule):
                                  mode='nearest')
         # import cv2
         # import numpy as np
-        # cv2.imwrite('/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/test_vis.png',np.array(255*mask_vis[0].permute(1,2,0).cpu()))
-        # cv2.imwrite('/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/test_lwir.png',
+        # cv2.imwrite('debug_outputs/test_vis.png',np.array(255*mask_vis[0].permute(1,2,0).cpu()))
+        # cv2.imwrite('debug_outputs/test_lwir.png',
         #             np.array(255 * mask_lwir[0].permute(1, 2, 0).cpu()))
         return mask_vis, mask_lwir
 
@@ -212,8 +212,8 @@ if __name__ == '__main__':
     import torch
 
     # edge extract test
-    data_root = '/home/zhangguiwei/KK/Datasets/FLIR_align/test/'
-    save_root = '/home/zhangguiwei/KK/codes/mmdet3-spectral/mmdet/models/custom/common_unique/'
+    data_root = 'data/FLIR_align/test/'
+    save_root = 'debug_outputs/common_unique/'
     img_lwir_filename = 'FLIR_08865_PreviewData.jpeg'
     img_filename = 'FLIR_08865_RGB.jpg'
     im_lwir = cv2.imread(data_root + img_lwir_filename, flags=1)

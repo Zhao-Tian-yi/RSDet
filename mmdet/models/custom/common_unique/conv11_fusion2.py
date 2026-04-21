@@ -96,7 +96,7 @@ def tSNEvis(x_vis_exclusive,x_lwir_exclusive,x_common):
     # 不要坐标轴
     # plt_sne.axis("off")
     # 保存图像
-    fileroot = '/home/zhangguiwei/KK/codes/mmdet3-spectral/tSNE_vis/noMI'
+    fileroot = 'debug_outputs/tsne/no_mi'
     # 创建目标文件夹
     if not os.path.exists(fileroot):
         os.makedirs(fileroot)
@@ -230,8 +230,6 @@ class Conv11_Fusion2(BaseModule):
         gate = F.softmax(gate, dim=1)
         x_vis_exclusive = self.expert_vis(x_vis)
         x_lwir_exclusive = self.expert_lwir(x_lwir)
-        import pdb
-        pdb.set_trace()
         # if torch.abs(gate[0,0]-gate[0,1])>0.7:
         #     if gate[0,0]-gate[0,1]>0.7:
         #         gate[0,0] = 1

@@ -96,7 +96,7 @@ def tSNEvis(x_vis_exclusive,x_lwir_exclusive,x_common):
     # 不要坐标轴
     # plt_sne.axis("off")
     # 保存图像
-    fileroot = '/home/zhangguiwei/KK/codes/mmdet3-spectral/tSNE_vis/noMI'
+    fileroot = 'debug_outputs/tsne/no_mi'
     # 创建目标文件夹
     if not os.path.exists(fileroot):
         os.makedirs(fileroot)
@@ -169,8 +169,8 @@ class _Gate(nn.Module):
         self.IA_fc11 = nn.Linear(in_features=40*32*6, out_features = 1000)#FLIR KAIST llvip
         self.IA_fc12 = nn.Linear(in_features=1000, out_features = 100)
         self.IA_fc13 = nn.Linear(in_features=100, out_features = self.num_gate)
-        # self.pool = nn.AvgPool2d(kernel_size=16) #FLIR KAIST
-        self.pool = nn.AvgPool2d(kernel_size=32) #llvip M3FD
+        self.pool = nn.AvgPool2d(kernel_size=16) #FLIR KAIST
+        # self.pool = nn.AvgPool2d(kernel_size=32) #llvip M3FD
         # self.gates_fc = nn.Linear(int(num_ins*self.channel_nums[i]/256*scale[i]*W/scale[i]*H/scale[i]), self.num_gate),
         self.IA_fc21 = nn.Linear(in_features=40*32*6, out_features = 1000)#FLIR KAIST llvip
         self.IA_fc22 = nn.Linear(in_features=1000, out_features = 100)
@@ -178,13 +178,14 @@ class _Gate(nn.Module):
 
     def forward(self, img_vis,img_lwir,):
         weights = []
-        
+
         x11= self.pool(torch.cat([img_vis, img_lwir], dim=1))
         x12 = self.flatten(x11)
         x13 = self.IA_fc11(x12)
         x14 = self.IA_fc12(x13)
         weight = self.IA_fc13(x14)
         weights.append(weight)
+
         x21= self.pool(torch.cat([img_vis, img_lwir], dim=1))
         x22 = self.flatten(x21)
         x23 = self.IA_fc21(x22)
@@ -239,10 +240,10 @@ class Conv11_Fusion3(BaseModule):
         gate = self.Gate(img_vis,img_lwir)
         gate_sms=[]
         gate_sm1=F.softmax(gate[0], dim=0)
-        gate_sm1= torch.where(torch.abs(gate_sm1) > 0.01, gate_sm1, torch.tensor(0.).cuda())
+        gate_sm1= torch.where(torch.abs(gate_sm1) > 0.1, gate_sm1, torch.tensor(0.).cuda())
         gate_sms.append(gate_sm1)
         gate_sm2=F.softmax(gate[1], dim=0)
-        gate_sm2= torch.where(torch.abs(gate_sm2) > 0.01, gate_sm2, torch.tensor(0.).cuda())
+        gate_sm2= torch.where(torch.abs(gate_sm2) > 0.1, gate_sm2, torch.tensor(0.).cuda())
         gate_sms.append(gate_sm2)
         x_vis_exclusive = self.expert_vis(x_vis)
         x_lwir_exclusive = self.expert_lwir(x_lwir)
@@ -261,9 +262,9 @@ class Conv11_Fusion3(BaseModule):
             unique_feature_fusion.append(gate_sms[0][:,i].unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)*x_vis_exclusive[i]+
                                          gate_sms[1][:,i].unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)*x_lwir_exclusive[i])
         unique_feature_fusion = tuple(unique_feature_fusion)
+        outs = []
         # import pdb
         # pdb.set_trace()
-        outs = []
         for i in range(len(x_common)):
             outs.append(0.7*x_common[i]+0.3*unique_feature_fusion[i])
         outs = tuple(outs)
